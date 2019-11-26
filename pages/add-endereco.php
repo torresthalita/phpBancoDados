@@ -4,6 +4,7 @@
             <label for="cep">CEP</label>
             <input type="text" class="form-control" id="cep" name="cep" onblur="pesquisacep(this.value)" maxlength="9" require>
         </div>
+        
         <div class="form-group">
             <label for="logradouro">Endereço</label>
             <input type="text" class="form-control" id="logradouro" name="logradouro" require>
