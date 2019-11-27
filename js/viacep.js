@@ -10,6 +10,7 @@ function limpa_formulario_cep() {
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
         //Atualiza os campos com os valores.
+        document.getElementById('cep').value = (conteudo.cep);
         document.getElementById('logradouro').value = (conteudo.logradouro);
         document.getElementById('bairro').value = (conteudo.bairro);
         document.getElementById('cidade').value = (conteudo.localidade);
@@ -57,11 +58,15 @@ function pesquisacep(valor) {
         else {
             //cep é inválido.
             limpa_formulario_cep();
-            aviso("Formato de CEP inválido.");
+            alert("Formato de CEP inválido.");
         }
     } //end if.
     else {
         //cep sem valor, limpa formulário.
         limpa_formulario_cep();
     }
-};
+}
+
+// listaUF(){
+//     https://servicodados.ibge.gov.br/api/v1/localidades/estados
+// }
