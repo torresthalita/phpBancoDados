@@ -2,7 +2,7 @@
 class Especialidade
 {
     private $id_especialidade;
-    private $especialidade;
+    private $nome;
     private $valor_dia;
 
     //ID --------------------
@@ -17,14 +17,14 @@ class Especialidade
     }
 
     //especialidade --------------------
-    public function getEspecialidade()
+    public function getNome()
     {
-        return $this->especialidade;
+        return $this->nome;
     }
 
-    public function setEspecialidade($especialidade)
+    public function setNome($nome)
     {
-        $this->especialidade = $especialidade;
+        $this->nome = $nome;
     }
 
     //Valor --------------------
@@ -46,8 +46,8 @@ class Especialidade
             require_once("dao.php");
             $dao = new Dao;
             $stman = $dao->conecta()->prepare($sql);
-            $stman->bindParam(":especialidade", getEspecialidade());
-            $stman->bindParam(":valor", getValor_dia());
+            $stman->bindParam(":especialidade", $this->nome);
+            $stman->bindParam(":valor", $this->valor_dia);
             $stman->execute();
             aviso("Cadastrado!");
         } catch (Exception $e) {
