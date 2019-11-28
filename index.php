@@ -71,6 +71,8 @@
     if (isset($_GET['p'])) {
         if ($_GET['p'] == "endereco")
             include("pages/add-endereco.php");
+        if ($_GET['p'] == "especialidade")
+            include("pages/add-especialidade.php");
     } else {
         include("pages/home.php");
     }
