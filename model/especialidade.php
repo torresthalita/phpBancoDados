@@ -41,7 +41,7 @@ class Especialidade
     function add()
     {
         try {
-            $sql = "insert into especialidade (especialidade, valor_dia) 
+            $sql = "insert into especialidade (especialidade, valor_dia)
             values (:especialidade, :valor)";
             require_once("dao.php");
             $dao = new Dao;
@@ -50,8 +50,14 @@ class Especialidade
             $stman->bindParam(":valor", $this->valor_dia);
             $stman->execute();
             aviso("Cadastrado!");
-        } catch (Exception $e) {
-            erro("Erro ao cadastrar! " . $e->getMessage());
+        } catch (PDOException $e) {
+
+            if ($e->getCode() == 23000) {
+                erro("Dados ja cadastrados!");
+            } else {
+                erro("Erro ao cadastrar! " . $e->getMessage());
+            }
+
         }
     }
 
