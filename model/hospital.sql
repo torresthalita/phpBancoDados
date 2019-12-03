@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 29-Nov-2019 às 01:50
+-- Generation Time: 03-Dez-2019 às 23:52
 -- Versão do servidor: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -88,7 +88,8 @@ CREATE TABLE `especialidade` (
 INSERT INTO `especialidade` (`id_especialidade`, `especialidade`, `valor_dia`) VALUES
 (1, 'Queimados', '11.00'),
 (2, 'Trauma', '15.00'),
-(5, '', '0.00');
+(5, '', '0.00'),
+(14, 'Infantil', '23.00');
 
 -- --------------------------------------------------------
 
@@ -254,7 +255,7 @@ ALTER TABLE `sexo`
 -- AUTO_INCREMENT for table `especialidade`
 --
 ALTER TABLE `especialidade`
-  MODIFY `id_especialidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_especialidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `funcionario`
