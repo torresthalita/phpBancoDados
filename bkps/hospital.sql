@@ -1,45 +1,56 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 03-Dez-2019 às 23:52
--- Versão do servidor: 10.1.33-MariaDB
--- PHP Version: 7.2.6
--- SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
--- SET AUTOCOMMIT = 0;
--- START TRANSACTION;
--- SET time_zone = "+00:00";
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- Host: localhost:3306
+-- Tempo de geração: 04/12/2019 às 16:50
+-- Versão do servidor: 5.7.28-0ubuntu0.18.04.4
+-- Versão do PHP: 7.2.24-0ubuntu0.18.04.1
+SET
+  SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET
+  time_zone = "+00:00";
+  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+  /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+  /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+  /*!40101 SET NAMES utf8mb4 */;
 --
--- Database: `hospital`
---
+  -- Banco de dados: `hospital`
+  --
+  -- --------------------------------------------------------
+  --
+  -- Estrutura para tabela `ala`
+  --
+  CREATE TABLE `ala` (
+    `id_ala` int(11) NOT NULL,
+    `fk_id_hospital` int(11) NOT NULL,
+    `fk_id_especialidade` int(11) NOT NULL,
+    `nome` varchar(50) NOT NULL,
+    `quant_leitos` int(11) DEFAULT '1'
+  ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 -- --------------------------------------------------------
---
--- Estrutura da tabela `doenca`
---
-CREATE TABLE `doenca` (
-  `id_doenca` int(11) NOT NULL,
-  `doenca` varchar(50) NOT NULL,
-  `nome_cientifico` varchar(50) DEFAULT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+  --
+  -- Estrutura para tabela `doenca`
+  --
+  CREATE TABLE `doenca` (
+    `id_doenca` int(11) NOT NULL,
+    `doenca` varchar(50) NOT NULL,
+    `nome_cientifico` varchar(50) DEFAULT NULL
+  ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 -- --------------------------------------------------------
+  --
+  -- Estrutura para tabela `endereco`
+  --
+  CREATE TABLE `endereco` (
+    `cep` varchar(9) NOT NULL,
+    `logradouro` varchar(100) NOT NULL,
+    `bairro` varchar(100) NOT NULL,
+    `cidade` varchar(100) NOT NULL,
+    `uf` varchar(2) NOT NULL
+  ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 --
--- Estrutura da tabela `endereco`
---
-CREATE TABLE `endereco` (
-  `cep` varchar(9) NOT NULL,
-  `logradouro` varchar(100) NOT NULL,
-  `bairro` varchar(100) NOT NULL,
-  `cidade` varchar(100) NOT NULL,
-  `uf` varchar(2) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = latin1;
---
--- Extraindo dados da tabela `endereco`
---
+  -- Fazendo dump de dados para tabela `endereco`
+  --
 INSERT INTO `endereco` (`cep`, `logradouro`, `bairro`, `cidade`, `uf`)
 VALUES
   (
@@ -51,25 +62,26 @@ VALUES
   );
 -- --------------------------------------------------------
   --
-  -- Estrutura da tabela `especialidade`
+  -- Estrutura para tabela `especialidade`
   --
   CREATE TABLE `especialidade` (
     `id_especialidade` int(11) NOT NULL,
-    `especialidade` varchar(100) NOT NULL,
-    `valor_dia` decimal(12, 2) NOT NULL
+    `nome` varchar(100) NOT NULL,
+    `valor_dia` decimal(12, 2) NOT NULL,
+    `ativo` tinyint(1) NOT NULL DEFAULT '1'
   ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 --
-  -- Extraindo dados da tabela `especialidade`
+  -- Fazendo dump de dados para tabela `especialidade`
   --
-INSERT INTO `especialidade` (`id_especialidade`, `especialidade`, `valor_dia`)
+INSERT INTO `especialidade` (`id_especialidade`, `nome`, `valor_dia`, `ativo`)
 VALUES
-  (1, 'Queimados', '11.00'),
-  (2, 'Trauma', '15.00'),
-  (5, '', '0.00'),
-  (14, 'Infantil', '23.00');
+  (1, 'Queimados', '11.00', 0),
+  (2, 'Trauma', '15.00', 0),
+  (5, 'Ortopedia', '50.00', 1),
+  (14, 'Infantil', '23.00', 1);
 -- --------------------------------------------------------
   --
-  -- Estrutura da tabela `funcionario`
+  -- Estrutura para tabela `funcionario`
   --
   CREATE TABLE `funcionario` (
     `id_funcionario` int(11) NOT NULL,
@@ -81,7 +93,7 @@ VALUES
   ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 -- --------------------------------------------------------
   --
-  -- Estrutura da tabela `hospital`
+  -- Estrutura para tabela `hospital`
   --
   CREATE TABLE `hospital` (
     `id_hospital` int(11) NOT NULL,
@@ -90,17 +102,29 @@ VALUES
     `numero` varchar(100) NOT NULL,
     `complemento` varchar(100) DEFAULT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+--
+  -- Fazendo dump de dados para tabela `hospital`
+  --
+INSERT INTO `hospital` (
+    `id_hospital`,
+    `nome`,
+    `fk_cep`,
+    `numero`,
+    `complemento`
+  )
+VALUES
+  (1, 'Hospital Geral', '23520-120', '34', NULL);
 -- --------------------------------------------------------
   --
-  -- Estrutura da tabela `lista_paciente`
+  -- Estrutura para tabela `lista_paciente`
   --
   CREATE TABLE `lista_paciente` (
-    `fk_id_doenca` int(11),
-    `fk_id_paciente` int(11)
+    `fk_id_doenca` int(11) DEFAULT NULL,
+    `fk_id_paciente` int(11) DEFAULT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 -- --------------------------------------------------------
   --
-  -- Estrutura da tabela `medico`
+  -- Estrutura para tabela `medico`
   --
   CREATE TABLE `medico` (
     `fk_funcionario` int(11) NOT NULL,
@@ -108,7 +132,7 @@ VALUES
   ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 -- --------------------------------------------------------
   --
-  -- Estrutura da tabela `paciente`
+  -- Estrutura para tabela `paciente`
   --
   CREATE TABLE `paciente` (
     `id_paciente` int(11) NOT NULL,
@@ -121,17 +145,17 @@ VALUES
   ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 -- --------------------------------------------------------
   --
-  -- Estrutura da tabela `sexo`
+  -- Estrutura para tabela `sexo`
   --
   CREATE TABLE `sexo` (
     `id_sexo` int(11) NOT NULL,
     `sexo` varchar(100) DEFAULT NULL
   ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 --
-  -- Indexes for dumped tables
+  -- Índices de tabelas apagadas
   --
   --
-  -- Indexes for table `ala`
+  -- Índices de tabela `ala`
   --
 ALTER TABLE `ala`
 ADD
@@ -141,29 +165,29 @@ ADD
 ADD
   KEY `especialidade` (`fk_id_especialidade`);
 --
-  -- Indexes for table `doenca`
+  -- Índices de tabela `doenca`
   --
 ALTER TABLE `doenca`
 ADD
   PRIMARY KEY (`id_doenca`);
 --
-  -- Indexes for table `endereco`
+  -- Índices de tabela `endereco`
   --
 ALTER TABLE `endereco`
 ADD
   PRIMARY KEY (`cep`);
 --
-  -- Indexes for table `especialidade`
+  -- Índices de tabela `especialidade`
   --
 ALTER TABLE `especialidade`
 ADD
   PRIMARY KEY (`id_especialidade`),
 ADD
-  UNIQUE KEY `especialidade` (`especialidade`),
+  UNIQUE KEY `especialidade` (`nome`),
 ADD
-  UNIQUE KEY `especialidade_2` (`especialidade`);
+  UNIQUE KEY `especialidade_2` (`nome`);
 --
-  -- Indexes for table `funcionario`
+  -- Índices de tabela `funcionario`
   --
 ALTER TABLE `funcionario`
 ADD
@@ -175,7 +199,7 @@ ADD
 ADD
   KEY `fk_cep` (`fk_cep`);
 --
-  -- Indexes for table `hospital`
+  -- Índices de tabela `hospital`
   --
 ALTER TABLE `hospital`
 ADD
@@ -183,7 +207,7 @@ ADD
 ADD
   KEY `fk_cep` (`fk_cep`);
 --
-  -- Indexes for table `lista_paciente`
+  -- Índices de tabela `lista_paciente`
   --
 ALTER TABLE `lista_paciente`
 ADD
@@ -191,13 +215,13 @@ ADD
 ADD
   KEY `FK_id_paciente` (`fk_id_paciente`);
 --
-  -- Indexes for table `medico`
+  -- Índices de tabela `medico`
   --
 ALTER TABLE `medico`
 ADD
   KEY `fk_funcionario` (`fk_funcionario`);
 --
-  -- Indexes for table `paciente`
+  -- Índices de tabela `paciente`
   --
 ALTER TABLE `paciente`
 ADD
@@ -213,44 +237,45 @@ ADD
 ADD
   KEY `sexo` (`fk_id_sexo`);
 --
-  -- Indexes for table `sexo`
+  -- Índices de tabela `sexo`
   --
 ALTER TABLE `sexo`
 ADD
   PRIMARY KEY (`id_sexo`);
 --
-  -- AUTO_INCREMENT for dumped tables
+  -- AUTO_INCREMENT de tabelas apagadas
   --
   --
-  -- AUTO_INCREMENT for table `especialidade`
+  -- AUTO_INCREMENT de tabela `especialidade`
   --
 ALTER TABLE `especialidade`
 MODIFY
   `id_especialidade` int(11) NOT NULL AUTO_INCREMENT,
   AUTO_INCREMENT = 16;
 --
-  -- AUTO_INCREMENT for table `funcionario`
+  -- AUTO_INCREMENT de tabela `funcionario`
   --
 ALTER TABLE `funcionario`
 MODIFY
   `id_funcionario` int(11) NOT NULL AUTO_INCREMENT;
 --
-  -- AUTO_INCREMENT for table `hospital`
+  -- AUTO_INCREMENT de tabela `hospital`
   --
 ALTER TABLE `hospital`
 MODIFY
-  `id_hospital` int(11) NOT NULL AUTO_INCREMENT;
+  `id_hospital` int(11) NOT NULL AUTO_INCREMENT,
+  AUTO_INCREMENT = 2;
 --
-  -- AUTO_INCREMENT for table `sexo`
+  -- AUTO_INCREMENT de tabela `sexo`
   --
 ALTER TABLE `sexo`
 MODIFY
   `id_sexo` int(11) NOT NULL AUTO_INCREMENT;
 --
-  -- Constraints for dumped tables
+  -- Restrições para dumps de tabelas
   --
   --
-  -- Limitadores para a tabela `ala`
+  -- Restrições para tabelas `ala`
   --
 ALTER TABLE `ala`
 ADD
@@ -258,7 +283,7 @@ ADD
 ADD
   CONSTRAINT `hospital` FOREIGN KEY (`fk_id_hospital`) REFERENCES `hospital` (`id_hospital`);
 --
-  -- Limitadores para a tabela `funcionario`
+  -- Restrições para tabelas `funcionario`
   --
 ALTER TABLE `funcionario`
 ADD
@@ -266,13 +291,13 @@ ADD
 ADD
   CONSTRAINT `funcionario_ibfk_2` FOREIGN KEY (`fk_cep`) REFERENCES `endereco` (`cep`);
 --
-  -- Limitadores para a tabela `hospital`
+  -- Restrições para tabelas `hospital`
   --
 ALTER TABLE `hospital`
 ADD
   CONSTRAINT `hospital_ibfk_1` FOREIGN KEY (`fk_cep`) REFERENCES `endereco` (`cep`);
 --
-  -- Limitadores para a tabela `lista_paciente`
+  -- Restrições para tabelas `lista_paciente`
   --
 ALTER TABLE `lista_paciente`
 ADD
@@ -280,13 +305,13 @@ ADD
 ADD
   CONSTRAINT `FK_id_paciente` FOREIGN KEY (`fk_id_paciente`) REFERENCES `paciente` (`id_paciente`);
 --
-  -- Limitadores para a tabela `medico`
+  -- Restrições para tabelas `medico`
   --
 ALTER TABLE `medico`
 ADD
   CONSTRAINT `medico_ibfk_1` FOREIGN KEY (`fk_funcionario`) REFERENCES `funcionario` (`id_funcionario`);
 --
-  -- Limitadores para a tabela `paciente`
+  -- Restrições para tabelas `paciente`
   --
 ALTER TABLE `paciente`
 ADD
@@ -295,7 +320,6 @@ ADD
   CONSTRAINT `cep` FOREIGN KEY (`fk_cep`) REFERENCES `endereco` (`cep`),
 ADD
   CONSTRAINT `sexo` FOREIGN KEY (`fk_id_sexo`) REFERENCES `sexo` (`id_sexo`);
-COMMIT;
   /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
   /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
