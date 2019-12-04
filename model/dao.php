@@ -6,6 +6,11 @@ class Dao
     const PASS = "";
     const DB = "hospital";
 
+    //const HOST = "localhost";
+    //const USER = "id11822336_admin";
+    //const PASS = "ABC@1234";
+    //const DB = "id11822336_hospital	";
+
     function conecta()
     {
         $pdo = null;

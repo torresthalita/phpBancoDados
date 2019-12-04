@@ -6,54 +6,40 @@
 -- Generation Time: 03-Dez-2019 às 23:52
 -- Versão do servidor: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
-SET
-  SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET
-  AUTOCOMMIT = 0;
-START TRANSACTION;
-SET
-  time_zone = "+00:00";
-  /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-  /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-  /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-  /*!40101 SET NAMES utf8mb4 */;
+-- SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+-- SET AUTOCOMMIT = 0;
+-- START TRANSACTION;
+-- SET time_zone = "+00:00";
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 --
-  -- Database: `hospital`
-  --
-  -- --------------------------------------------------------
-  --
-  -- Estrutura da tabela `ala`
-  --
-  CREATE TABLE `ala` (
-    `id_ala` int(11) NOT NULL,
-    `fk_id_hospital` int(11) NOT NULL,
-    `fk_id_especialidade` int(11) NOT NULL,
-    `nome` varchar(50) NOT NULL,
-    `quant_leitos` int(11) DEFAULT '1'
-  ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
--- --------------------------------------------------------
-  --
-  -- Estrutura da tabela `doenca`
-  --
-  CREATE TABLE `doenca` (
-    `id_doenca` int(11) NOT NULL,
-    `doenca` varchar(50) NOT NULL,
-    `nome_cientifico` varchar(50) DEFAULT NULL
-  ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
--- --------------------------------------------------------
-  --
-  -- Estrutura da tabela `endereco`
-  --
-  CREATE TABLE `endereco` (
-    `cep` varchar(9) NOT NULL,
-    `logradouro` varchar(100) NOT NULL,
-    `bairro` varchar(100) NOT NULL,
-    `cidade` varchar(100) NOT NULL,
-    `uf` varchar(2) NOT NULL
-  ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+-- Database: `hospital`
 --
-  -- Extraindo dados da tabela `endereco`
-  --
+-- --------------------------------------------------------
+--
+-- Estrutura da tabela `doenca`
+--
+CREATE TABLE `doenca` (
+  `id_doenca` int(11) NOT NULL,
+  `doenca` varchar(50) NOT NULL,
+  `nome_cientifico` varchar(50) DEFAULT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+-- --------------------------------------------------------
+--
+-- Estrutura da tabela `endereco`
+--
+CREATE TABLE `endereco` (
+  `cep` varchar(9) NOT NULL,
+  `logradouro` varchar(100) NOT NULL,
+  `bairro` varchar(100) NOT NULL,
+  `cidade` varchar(100) NOT NULL,
+  `uf` varchar(2) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+--
+-- Extraindo dados da tabela `endereco`
+--
 INSERT INTO `endereco` (`cep`, `logradouro`, `bairro`, `cidade`, `uf`)
 VALUES
   (
