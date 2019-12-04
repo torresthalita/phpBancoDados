@@ -26,24 +26,23 @@ class Ala
         try {
             $sql = "
             START TRANSACTION;
-
             insert into ala (fk_id_hospital,fk_id_especialidade,quant_leitos) 
             values (:id_hospital, :id_especialidade, :leitos);
-
             ";
             require_once("dao.php");
             $dao = new Dao;
             $stman = $dao->conecta()->prepare($sql);
             $stman->bindParam(":especialidade", $this->nome);
             $stman->bindParam(":valor", $this->valor_dia);
-            $stman->execute("COMMIT;");
+            $stman->execute();
+            $stman->execute("COMMIT");
             aviso("Cadastrado!");
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                $stman.exec("ROLLBACK");
+                $stman->execute("ROLLBACK");
                 erro("Dados ja cadastrados!");
             } else {
-                $stman.exec("ROLLBACK");
+                $stman . exec("ROLLBACK");
                 erro("Erro ao cadastrar! " . $e->getCode());
             }
         }
