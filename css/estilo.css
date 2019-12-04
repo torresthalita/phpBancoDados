@@ -1,4 +1,12 @@
-body{
+body {
     margin-top: 80px;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
+}
+
+section {
+    padding: 30px 0;
+}
+
+h2 {
+    padding-bottom: 25px;
 }

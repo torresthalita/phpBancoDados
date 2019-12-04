@@ -3,7 +3,7 @@ class Dao
 {
     const HOST = "localhost";
     const USER = "root";
-    const PASS = "";
+    const PASS = "Abc@12345";
     const DB = "hospital";
 
     //const HOST = "localhost";
@@ -11,6 +11,7 @@ class Dao
     //const PASS = "ABC@1234";
     //const DB = "id11822336_hospital	";
 
+    
     function conecta()
     {
         $pdo = null;
