@@ -32,7 +32,7 @@
                     </li>
                 </ul>
 
-                <?php if (session_status() != PHP_SESSION_ACTIVE) {
+                <?php if (session_status() !== PHP_SESSION_ACTIVE) {
                     session_start();
                 } ?>
 
@@ -73,6 +73,8 @@
             include("pages/add-endereco.php");
         if ($_GET['p'] == "especialidade")
             include("pages/add-especialidade.php");
+        if ($_GET['p'] == "ala")
+            include("pages/add-ala.php");
     } else {
         include("pages/home.php");
     }
