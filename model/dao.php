@@ -3,12 +3,12 @@ class Dao
 {
     const HOST = "localhost";
     const USER = "root";
-    const PASS = "Abc@12345";
+    const PASS = "";
     const DB = "hospital";
 
     //const HOST = "localhost";
     //const USER = "id11822336_admin";
-    //const PASS = "ABC@1234";
+    //const PASS = "Abc@1234";
     //const DB = "id11822336_hospital	";
 
     
