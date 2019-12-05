@@ -36,7 +36,7 @@ class Ala
         return $this->especialidade;
     }
 
-    public function setEspecialidade($especialidade)
+    public function setEspecialidade(Especialidade $especialidade)
     {
         $this->especialidade = $especialidade;
         return $this;
@@ -69,7 +69,7 @@ class Ala
         return $this->hospital;
     }
 
-    public function setHospital($hospital)
+    public function setHospital( Hospital $hospital)
     {
         $this->hospital = $hospital;
         return $this;
@@ -92,7 +92,6 @@ class Ala
     {
         try {
             $sql = "
-            START TRANSACTION;
             insert into ala (fk_id_hospital,fk_id_especialidade,quant_leitos) 
             values (:id_hospital, :id_especialidade, :leitos);
             ";
@@ -102,14 +101,12 @@ class Ala
             $stman->bindParam(":especialidade", $this->nome);
             $stman->bindParam(":valor", $this->valor_dia);
             $stman->execute();
-            $stman->execute("COMMIT");
+            $stman->execute();
             aviso("Cadastrado!");
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                $stman->execute("ROLLBACK");
                 erro("Dados ja cadastrados!");
             } else {
-                $stman . exec("ROLLBACK");
                 erro("Erro ao cadastrar! " . $e->getCode());
             }
         }

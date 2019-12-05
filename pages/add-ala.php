@@ -37,28 +37,29 @@ if (!$ala->getEspecialidade()->listAll()) {
 
     <section class="container">
         <h2>Formulario da Ala</h2>
-        <div class="form-group">
-            <label for="nome">Nome da Ala</label>
-            <input type="text" class="form-control" id="nome" name="nome" required>
-        </div>
-        <div class="form-group">
-            <label for="leitos">Quantidade de Leitos</label>
-            <input type="number" class="form-control" id="leitos" name="leitos" value='<?=  $ala->getQuant_leitos()?>' required>
-        </div>
+        <form method="post" class="">
+            <div class="form-group">
+                <label for="nome">Nome da Ala</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="leitos">Quantidade de Leitos</label>
+                <input type="number" class="form-control" id="leitos" name="leitos" value='<?= $ala->getQuant_leitos() ?>' required>
+            </div>
 
-        <div class="form-group">
-            <label for="especialidade">Especialidade</label>
-            <select class="form-control" id="especialidade" name="especialidade">
-            <?php
-                foreach ($ala->getEspecialidade()->listAll() as $e) {
-                    echo "<option value='$e->id_especialidade'>$e->nome";
-                }
-            ?>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="especialidade">Especialidade</label>
+                <select class="form-control" id="especialidade" name="especialidade">
+                    <?php
+                        foreach ($ala->getEspecialidade()->listAll() as $e) {
+                            echo "<option value='$e->id_especialidade'>$e->nome";
+                        }
+                        ?>
+                </select>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        <button type="reset" class="btn btn-primary">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="reset" class="btn btn-primary">Cancelar</button>
         </form>
     </section>
 

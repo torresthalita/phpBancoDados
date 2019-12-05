@@ -76,6 +76,8 @@
             include("pages/add-especialidade.php");
         if ($_GET['p'] == "ala")
             include("pages/add-ala.php");
+        if ($_GET['p'] == "hospital")
+            include("pages/add-hospital.php");
     } else {
         include("pages/home.php");
     }

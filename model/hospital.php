@@ -8,11 +8,12 @@ class Hospital
     private $nome;
     private $numero;
     private $complemento;
-
+    private $ativo;
 
     public function __construct()
     {
         $this->endereco = new Endereco;
+        $this->ativo = true;
     }
 
     // GETs e SETs ---------------------------------------------
@@ -32,7 +33,7 @@ class Hospital
         return $this->endereco;
     }
 
-    public function setEndereco($endereco)
+    public function setEndereco(Endereco $endereco)
     {
         $this->endereco = $endereco;
         return $this;
@@ -60,13 +61,22 @@ class Hospital
         return $this;
     }
 
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+        return $this;
+    }
 
     // CRUD -------------------------------------------------
     function add()
     {
         try {
             $sql = "
-            START TRANSACTION;
             INSERT INTO hospital (id_hospital, nome, fk_cep, numero, complemento) 
             VALUES (NULL, :nome, :endereco, :numero, :complemento);
             ";
@@ -78,14 +88,11 @@ class Hospital
             $stman->bindParam(":numero", $this->numero);
             $stman->bindParam(":complemento", $this->complemento);
             $stman->execute();
-            $stman->execute("COMMIT");
             aviso("Cadastrado!");
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                $stman->execute("ROLLBACK");
                 erro("Dados ja cadastrados!");
             } else {
-                $stman . exec("ROLLBACK");
                 erro("Erro ao cadastrar! " . $e->getCode());
             }
         }
@@ -137,6 +144,7 @@ class Hospital
             fk_cep = :endereco,
             numero = :numero,
             complemento = :complemento,
+            ativo = :ativo
             WHERE h.id_hospital = :id;";
             require_once("dao.php");
             $dao = new Dao;
@@ -177,8 +185,8 @@ class Hospital
         }
         return $result;
     }
-}
 
+}
    // START TRANSACTION;
     // insert into hospital 
     // (hospital.fk_id_hospital,hospital.fk_id_especialidade, hospital.nome, ala.quant_leitos) 

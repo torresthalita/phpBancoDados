@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "askForPassword": true,
+            "database": "hospital",
+            "dialect": "MySQL",
+            "name": "Hospital",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}
